@@ -325,4 +325,9 @@ public class MybatisTest {
         //5.关闭资源
         sqlSession.close();
     }
+    @Test
+    public void test(){
+        System.out.println("mybatis-demo");
+    }
+
 }
