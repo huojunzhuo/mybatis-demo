@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--
+    namespace:名称空间
+-->
+<!--namespace改成接口的全类名-->
+<mapper namespace="com.itheima.mapper.BrandMapper">
+
+    <select id="selectAll" resultMap="brandResultMap">
+        SELECT * FROM tb_brand;
+    </select>
+
+    <!--*两种参数占位符：
+        1  #{}：会将#{}占位符替换为？为了防止sql注入，将来自动设置参数值。
+        2  ${}: 拼sql,会存在sql注入问题。
+        3  使用时机：*参数传递时候用#{}
+                    *动态表名或者列名不固定时候（动态输入）
+        *参数类型：parameterType：可以省略
+        *特殊字符：
+            1.转义字符
+            2.CDATA区 CD提示
+    -->
+
+    <select id="selectById" parameterType = "int"  resultMap="brandResultMap">
+        SELECT *FROM tb_brand
+--         WHERE id = #{id};
+        where id &lt;#{id};
+    </select>
+
+    <!--<select id="selectById" parameterType = "int"  resultMap="brandResultMap">-->
+        <!--SELECT *FROM tb_brand-->
+        <!--where id-->
+        <!--<![CDATA[-->
+        <!--<=-->
+        <!--]]>-->
+
+        <!--#{id};-->
+    <!--</select>-->
+
+
+    <resultMap id="brandResultMap" type="Brand">
+        <!--
+            id：完成主键字段的映射
+            column：表的列名
+            property：实体类的属性名
+            result：完成一般字段的映射
+            column：表的列名
+            property：实体类的属性名
+            -->
+        <result column="brand_name" property="brandName"></result>
+        <result column="company_name" property="companyName"></result>
+    </resultMap>
+
+</mapper>
